@@ -9,8 +9,8 @@ class Item < ApplicationRecord
   belongs_to :day
 
   validates :image,         presence: true
-  validates :item_name,     presence: true
-  validates :description,   presence: true
+  validates :item_name,     presence: true, length: { maximum: 40 }
+  validates :description,   presence: true, length: { maximum: 1000}
   validates :category_id,   numericality: { message: "can't be blank"}
   validates :item_state_id, numericality: { message: "can't be blank"}
   validates :charge_id,     numericality: { message: "can't be blank"}
