@@ -38,29 +38,29 @@ RSpec.describe Item, type: :model do
         expect(@item.errors.full_messages).to include("Description is too long (maximum is 1000 characters)")
       end
       it 'category_idが空では保存できない' do
-        @item.category_id = nil
+        @item.category_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Category can't be blank")
       end
       it 'item_state_idが空では保存できない' do
-        @item.item_state_id = nil
+        @item.item_state_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Item state can't be blank")
       end
       it 'charge_idが空では保存できない' do
-        @item.charge_id = nil
+        @item.charge_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Charge can't be blank")
 
       end
       it 'prefecture_idが空では保存できない' do
-        @item.prefecture_id = nil
+        @item.prefecture_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Prefecture can't be blank")
 
       end
       it 'day_idが空では保存できない' do
-        @item.day_id = nil
+        @item.day_id = 0
         @item.valid?
         expect(@item.errors.full_messages).to include("Day can't be blank")
 
@@ -85,7 +85,11 @@ RSpec.describe Item, type: :model do
         @item.valid?
         expect(@item.errors.full_messages).to include("Price must be less than or equal to 9999999")
       end
-
+      it '半角数字以外の値（全角の値）が含まれている場合は保存できないこと' do
+        @item.price = "あ"
+        @item.valid?
+        expect(@item.errors.full_messages).to include("Price is not a number")
+      end
       it 'userが紐付いていないと保存できない' do
         @item.user = nil
         @item.valid?
