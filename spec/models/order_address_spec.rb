@@ -7,7 +7,6 @@ RSpec.describe OrderAddress, type: :model do
     @order_address = FactoryBot.build(:order_address, user_id: user.id, item_id: item.id)
   end
   describe '商品購入機能' do
-    
     context '商品の購入ができる場合' do
       it '正常に出品ができる' do
         expect(@order_address).to be_valid
@@ -58,7 +57,6 @@ RSpec.describe OrderAddress, type: :model do
         @order_address.phone_number = '09012345678987654321'
         @order_address.valid?
         expect(@order_address.errors.full_messages).to include('Phone number is invalid. Input only number')
-
       end
       it 'phone_numberに半角数字以外の値が含まれている場合は保存できない' do
         @order_address.phone_number = '090-1234-5678'
