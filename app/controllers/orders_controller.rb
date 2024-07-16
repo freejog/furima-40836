@@ -3,7 +3,7 @@ class OrdersController < ApplicationController
   def index
     gon.public_key = ENV["PAYJP_PUBLIC_KEY"]
     @item = Item.find(params[:item_id])
-    if @item.user.id == current_user.id
+    if @item.user.id == current_user.id || @item.order != nil
       redirect_to root_path
     end
     @order_address = OrderAddress.new
