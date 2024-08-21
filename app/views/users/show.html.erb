@@ -1,0 +1,24 @@
+<%= render "shared/header" %>
+
+<div class="user-page">
+  <div class="user-contents">
+    <p class="user-name">ユーザー名:<%= @user.nickname %></p>
+    <% if current_user != @user %>
+      <% if @user.followed_by?(current_user) %>
+        <%= link_to "フォロー中(クリックするとフォローから外れる)", user_relationships_path(@user.id), class: "btn", data: { turbo_method: :delete } %>
+      <% else %>
+        <%= link_to "フォローする", user_relationships_path(@user.id), class: "btn", data: { turbo_method: :post } %>
+      <% end %>
+    <% end %>
+    <h4>フォロー</h4>
+    <% @user.followings.each do |user| %>
+      <p class="f-user"><%= link_to user.nickname, user_path(user.id) %> </p>
+    <% end %>
+    <h3>フォロワー</h3>
+    <% @user.followers.each do |user| %>
+      <p class="f-user"><%= link_to user.nickname, user_path(user.id) %> </p>
+    <% end %>
+  </div>
+</div>
+
+<%= render "shared/footer" %>
