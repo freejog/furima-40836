@@ -22,4 +22,10 @@ class Item < ApplicationRecord
     validates :price, numericality: { only_integer: true, greater_than_or_equal_to: 300, less_than_or_equal_to: 9_999_999 },
                       presence: { message: "can't be blank" }
   end
+  # 以下、いいね機能の追加実装
+  has_many :likes
+
+  def liked_by?(user)
+    likes.where(user_id: user.id).exists?
+  end
 end
