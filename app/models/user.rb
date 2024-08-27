@@ -7,6 +7,17 @@ class User < ApplicationRecord
   has_many :items
   has_many :orders
 
+  has_many :active_relationships, class_name: 'Relationship', foreign_key: :following_id
+  has_many :followings, through: :active_relationships, source: :follower
+
+  has_many :passive_relationships, class_name: 'Relationship', foreign_key: :follower_id
+  has_many :followers, through: :passive_relationships, source: :following
+
+  def followed_by?(user)
+    follower = passive_relationships.find_by(following_id: user.id)
+    follower.present?
+  end
+
   validates :nickname, presence: true
   validates :last_name, presence: true
   validates :first_name, presence: true
