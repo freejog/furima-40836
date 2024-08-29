@@ -41,4 +41,7 @@ class User < ApplicationRecord
 
   # 以下、いいね機能の追加実装
   has_many :likes
+
+  # 以下、コメント機能の追加実装
+  has_many :comments
 end

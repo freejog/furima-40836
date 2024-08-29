@@ -28,4 +28,7 @@ class Item < ApplicationRecord
   def liked_by?(user)
     likes.where(user_id: user.id).exists?
   end
+
+  # 以下、コメント機能の追加実装
+  has_many :comments
 end
