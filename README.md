@@ -18,6 +18,15 @@
 - has_many :items
 - has_many :orders
 
+- has_many :active_relationships, class_name: "Relationship", foreign_key: :following_id
+- has_many :followings, through: :active_relationships, source: :follower
+- has_many :passive_relationships, class_name: "Relationship", foreign_key: :follower_id
+- has_many :followers, through: :passive_relationships, source: :following
+
+- has_many :likes
+
+- has_many :comments
+
 ## items テーブル
 
 | Column        | Type       | Options     |
@@ -36,6 +45,10 @@
 
 - belongs_to :user
 - has_one :order
+
+- has_many :likes
+
+- has_many :comments
 
 ## orders テーブル
 
@@ -65,3 +78,39 @@
 ### Association
 
 - belongs_to :order
+
+## relationships テーブル
+
+| Column    | Type       | Options                        |
+| --------- | ---------- | ------------------------------ |
+| follower  | references | null: false, foreign_key: true |
+| following | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :following, class_name: "User"
+- belongs_to :follower, class_name: "User"
+
+## likes テーブル
+
+| Column | Type       | Options                        |
+| ------ | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
+
+### Association
+
+- belongs_to :user
+- belongs_to :item
+
+## comments テーブル
+
+| Column | Type       | Options                        |
+| -----  | ---------- | ------------------------------ |
+| user   | references | null: false, foreign_key: true |
+| item   | references | null: false, foreign_key: true |
+
+### Association テーブル
+
+- belongs_to :user
+- belongs_to :item
