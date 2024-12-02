@@ -56,11 +56,12 @@ group :development, :test do
   gem 'faker'
   gem 'gimei'
 
-  gem 'capistrano'
-  gem 'capistrano-rbenv'
-  gem 'capistrano-bundler'
-  gem 'capistrano-rails'
-  gem 'capistrano3-unicorn'
+  # 以下、AWSデプロイ時に使用
+  # gem 'capistrano'
+  # gem 'capistrano-rbenv'
+  # gem 'capistrano-bundler'
+  # gem 'capistrano-rails'
+  # gem 'capistrano3-unicorn'
 end
 
 group :development do
